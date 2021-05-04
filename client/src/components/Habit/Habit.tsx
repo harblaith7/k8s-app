@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import HabitCard from '../HabitCard/HabitCard'
 import Modal from "../Modal/Modal"
 import "./Habit.css"
+import axios from "axios"
 
 function Habit() {
 
@@ -11,7 +12,21 @@ function Habit() {
             habit: "Make my bed first thing in the morning",
             completed: true
         }
-    ])
+    ]);
+
+    useEffect(() => {
+        fetchHabits()
+    }, [])
+
+    const fetchHabits = async () => {
+        console.log("adfasf")
+        try {
+            let habits = await axios.get("http://10.99.183.96/api");
+        } catch (error) {
+            console.log(error)
+        }
+        console.log("adfasf")
+    }
 
     return (
         <div className="Habit">
