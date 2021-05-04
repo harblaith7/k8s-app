@@ -4,28 +4,25 @@ import Modal from "../Modal/Modal"
 import "./Habit.css"
 import axios from "axios"
 
+type IState = {
+    _id: string;
+    habit: string;
+    completed: boolean;
+}[]
+
 function Habit() {
 
-    const [habits, setHabits] = useState([
-        {
-            _id: "adfagag",
-            habit: "Make my bed first thing in the morning",
-            completed: true
-        }
-    ]);
+    const [habits, setHabits] = useState<IState>([]);
 
     useEffect(() => {
         fetchHabits()
     }, [])
 
     const fetchHabits = async () => {
-        console.log("adfasf")
-        try {
-            let habits = await axios.get("http://10.99.183.96/api");
-        } catch (error) {
-            console.log(error)
-        }
-        console.log("adfasf")
+        let response: {
+            data: IState
+        } = await axios.get("/api/habits");
+        setHabits(response.data)
     }
 
     return (
