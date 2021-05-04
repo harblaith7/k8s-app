@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { Modal, Button, InputGroup, FormControl } from "react-bootstrap"
+import { Modal, Button, InputGroup, FormControl } from "react-bootstrap";
+import axios from "axios"
 
 interface IProps {
   habits: {
@@ -14,6 +15,12 @@ interface IProps {
   }[]>>
 }
 
+type Habit = {
+  _id: string,
+  habit: string,
+  completed: boolean
+}
+
 function AddModal({ habits, setHabits }: IProps) {
     const [show, setShow] = useState(false);
   
@@ -21,15 +28,20 @@ function AddModal({ habits, setHabits }: IProps) {
     const handleShow = () => setShow(true);
     const [habit, setHabit] = useState("")
 
-    const handleAdd = () => {
+    const handleAdd = async () => {
       if(habit){
+        const response: {
+          data: Habit
+        } = await axios.post('/api/habit', {
+          habit: {
+            habit,
+            completed: false
+          }
+        });
+        console.log(response.data)
         setHabits([
           ...habits,
-          {
-            habit,
-            completed: false,
-            _id: "gg34h3h3"
-          }
+          response.data
         ]);
         setShow(false);
         setHabit("")
