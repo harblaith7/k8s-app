@@ -13,10 +13,17 @@ spec:
       labels:
         app: mongo
     spec:
-        containers:
-          - name: mongo
-            image: mongo
-
+      containers:
+        - name: mongo
+          image: mongo
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+      volumes:
+        - name: mongo-storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+              
 ---
 
 apiVersion: v1
