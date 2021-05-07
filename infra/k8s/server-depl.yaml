@@ -16,6 +16,10 @@ spec:
       containers:
         - name: server
           image: laithharb/server:v2
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
           env:
             - name: MONGO_URL 
               valueFrom:
