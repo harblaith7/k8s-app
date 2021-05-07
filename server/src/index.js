@@ -31,7 +31,7 @@ app.get("/api/habits", async (req, res) => {
 const main = async () => {
 
     try {
-        await mongoose.connect("mongodb://mongo-srv/habits", {
+        await mongoose.connect(process.env.MONGO_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
